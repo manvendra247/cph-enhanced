@@ -124,7 +124,7 @@ export const getDebugMode = (): boolean => {
 };
 
 export const setDebugMode = (enabled: boolean): void => {
-    setPreference('general.debugMode', enabled);
+    updatePreference('general.debugMode', enabled, vscode.ConfigurationTarget.Global);
 };
 
 export const getCCommand = (): string =>
