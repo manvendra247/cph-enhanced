@@ -8,6 +8,7 @@ import {
     getCppOutputArgPref,
     getSaveLocationPref,
     getHideStderrorWhenCompiledOK,
+    getDebugMode,
 } from './preferences';
 import * as vscode from 'vscode';
 import { getJudgeViewProvider } from './extension';
@@ -83,6 +84,14 @@ const getFlags = (language: Language, srcPath: string): string[] => {
                 '-D',
                 'CPH',
             ];
+            
+            // Add LOCAL flag for debug mode (enables dbg() macros)
+            const debugMode = getDebugMode();
+            if (debugMode) {
+                ret.push('-D');
+                ret.push('LOCAL');
+            }
+            
             if (onlineJudgeEnv) {
                 ret.push('-D');
                 ret.push('ONLINE_JUDGE');

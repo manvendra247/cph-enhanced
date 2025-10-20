@@ -48,6 +48,11 @@
                 "command": "cph.submitToCodeForces",
                 "title": "Submit to CodeForces",
                 "icon": "dist/static/play.png"
+            },
+            {
+                "command": "cph.toggleDebugMode",
+                "title": "Toggle Debug Mode (dbg macros)",
+                "icon": "$(debug-alt)"
             }
         ],
         "keybindings": [
@@ -62,6 +67,10 @@
             {
                 "key": "ctrl+alt+d",
                 "command": "cph.judgeView.focus"
+            },
+            {
+                "key": "ctrl+shift+alt+d",
+                "command": "cph.toggleDebugMode"
             }
         ],
         "configuration": {
@@ -367,6 +376,11 @@
                     "type": "string",
                     "default": "",
                     "description": "The path to the template file that will be used when creating a new file for the default language via Competitive Companion. For Java templates, use 'CLASS_NAME' as a placeholder for the class name like 'class CLASS_NAME{...}'"
+                },
+                "cph.general.debugMode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable debug mode compilation with -DLOCAL flag. When enabled, debug macros like dbg() will show output during testing."
                 },
                 "cph.general.autoShowJudge": {
                     "type": "boolean",

@@ -119,6 +119,14 @@ export const getDefaultLanguageTemplateFileLocation = (): string | null => {
     return pref;
 };
 
+export const getDebugMode = (): boolean => {
+    return getPreference('general.debugMode') || false;
+};
+
+export const setDebugMode = (enabled: boolean): void => {
+    setPreference('general.debugMode', enabled);
+};
+
 export const getCCommand = (): string =>
     getPreference('language.c.Command') || 'gcc';
 export const getCppCommand = (): string =>
