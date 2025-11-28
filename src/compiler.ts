@@ -8,7 +8,6 @@ import {
     getCppOutputArgPref,
     getSaveLocationPref,
     getHideStderrorWhenCompiledOK,
-    getDebugMode,
 } from './preferences';
 import * as vscode from 'vscode';
 import { getJudgeViewProvider } from './extension';
@@ -65,7 +64,7 @@ export const getBinSaveLocation = (srcPath: string): string => {
  * @param language The Language object for the source code
  * @param srcPath location of the source code
  */
-const getFlags = (language: Language, srcPath: string): string[] => {
+const getFlags = (language: Language, srcPath: string, debugMode = false): string[] => {
     // The language.args are fetched from user saved preferences, if any.
     let args = language.args;
     if (args[0] === '') args = [];
@@ -86,7 +85,6 @@ const getFlags = (language: Language, srcPath: string): string[] => {
             ];
             
             // Add LOCAL flag for debug mode (enables dbg() macros)
-            const debugMode = getDebugMode();
             if (debugMode) {
                 ret.push('-D');
                 ret.push('LOCAL');
@@ -305,7 +303,7 @@ const createDotnetProject = async (
  *
  * @param srcPath location of the source code
  */
-export const compileFile = async (srcPath: string): Promise<boolean> => {
+export const compileFile = async (srcPath: string, debugMode = false): Promise<boolean> => {
     globalThis.logger.log('Compilation Started');
     await vscode.workspace.openTextDocument(srcPath).then((doc) => doc.save());
     ocHide();
@@ -343,7 +341,7 @@ export const compileFile = async (srcPath: string): Promise<boolean> => {
     getJudgeViewProvider().extensionToJudgeViewMessage({
         command: 'compiling-start',
     });
-    const flags: string[] = getFlags(language, srcPath);
+    const flags: string[] = getFlags(language, srcPath, debugMode);
     globalThis.logger.log('Compiling with flags', flags);
     const result = new Promise<boolean>((resolve) => {
         let compiler;

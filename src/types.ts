@@ -121,6 +121,11 @@ export type RunSingleCommand = {
     id: number;
 } & WebviewMessageCommon;
 
+export type RunDebugSingleCommand = {
+    command: 'run-debug-single';
+    id: number;
+} & WebviewMessageCommon;
+
 export type RunAllCommand = {
     command: 'run-all-and-save';
 } & WebviewMessageCommon;
@@ -172,6 +177,7 @@ export type WebviewToVSEvent =
     | GetInitialProblem
     | CreateLocalProblem
     | RunSingleCommand
+    | RunDebugSingleCommand
     | KillRunningCommand
     | SaveCommand
     | DeleteTcsCommand

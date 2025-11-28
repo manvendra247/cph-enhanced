@@ -299,6 +299,10 @@ body.vscode-light .btn-pink {
     background: rgba(244, 164, 15, 0.781);
 }
 
+.btn-debug {
+    background: #6c757d;
+}
+
 .btn-submit {
     margin: 10px;
 }

@@ -46,7 +46,14 @@ class JudgeViewProvider implements vscode.WebviewViewProvider {
                     case 'run-single-and-save': {
                         const problem = message.problem;
                         const id = message.id;
-                        runSingleAndSave(problem, id);
+                        runSingleAndSave(problem, id, false, false, false);
+                        break;
+                    }
+
+                    case 'run-debug-single': {
+                        const problem = message.problem;
+                        const id = message.id;
+                        runSingleAndSave(problem, id, false, false, true);
                         break;
                     }
 

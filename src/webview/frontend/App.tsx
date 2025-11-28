@@ -233,6 +233,26 @@ function Judge(props: {
         });
     };
 
+    // Run a single test case in debug mode
+    const runDebug = (id: number, input: string, output: string) => {
+        refreshOnlineJudge();
+        const idx = problem.tests.findIndex((testCase) => testCase.id === id);
+
+        if (idx === -1) {
+            console.log('No id in problem tests', problem, id);
+            return;
+        }
+
+        problem.tests[idx].input = input;
+        problem.tests[idx].output = output;
+
+        sendMessageToVSCode({
+            command: 'run-debug-single',
+            problem,
+            id,
+        });
+    };
+
     // Remove a case.
     const remove = (id: number) => {
         const newCases = cases.filter((value) => value.id !== id);
@@ -257,6 +277,7 @@ function Judge(props: {
         ]);
         setFocusLast(true);
     };
+
 
     // Stop running executions.
     const stop = () => {
@@ -372,6 +393,7 @@ function Judge(props: {
                     doFocus={true}
                     forceRunning={getRunningProp(value)}
                     updateCase={updateCase}
+                    runDebug={runDebug}
                 ></CaseView>,
             );
             debounceFocusLast();
@@ -386,6 +408,7 @@ function Judge(props: {
                     remove={remove}
                     forceRunning={getRunningProp(value)}
                     updateCase={updateCase}
+                    runDebug={runDebug}
                 ></CaseView>,
             );
         }
@@ -793,6 +816,7 @@ const getCasesFromProblem = (problem: Problem | undefined): Case[] => {
         id: testCase.id,
         result: null,
         testcase: testCase,
+        debugMode: false,
     }));
 };
 

@@ -35,7 +35,7 @@ export default async () => {
         return;
     }
 
-    const didCompile = await compileFile(srcPath);
+    const didCompile = await compileFile(srcPath, false);
 
     if (!didCompile) {
         globalThis.logger.error('Could not compile', srcPath);

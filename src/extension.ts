@@ -35,7 +35,7 @@ import {
 } from './webview/editorChange';
 import { submitToCodeForces, submitToKattis } from './submit';
 import JudgeViewProvider from './webview/JudgeView';
-import { getRetainWebviewContextPref, getDebugMode, setDebugMode } from './preferences';
+import { getRetainWebviewContextPref } from './preferences';
 import TelemetryReporter from '@vscode/extension-telemetry';
 import config from './config';
 
@@ -71,20 +71,6 @@ const registerCommands = (context: vscode.ExtensionContext) => {
         'cph.submitToKattis',
         () => {
             submitToKattis();
-        },
-    );
-
-    const disposable5 = vscode.commands.registerCommand(
-        'cph.toggleDebugMode',
-        () => {
-            const currentMode = getDebugMode();
-            const newMode = !currentMode;
-            setDebugMode(newMode);
-            
-            const statusText = newMode ? 'Debug Mode: ON (dbg() macros enabled)' : 'Debug Mode: OFF (clean output)';
-            vscode.window.showInformationMessage(statusText);
-            
-            globalThis.logger.log('Debug mode toggled:', newMode);
         },
     );
 

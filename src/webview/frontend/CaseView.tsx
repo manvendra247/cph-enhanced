@@ -12,6 +12,7 @@ export default function CaseView(props: {
     notify: (text: string) => void;
     doFocus?: boolean;
     forceRunning: boolean;
+    runDebug: (id: number, input: string, output: string) => void;
 }) {
     const { id, result } = props.case;
 
@@ -163,6 +164,16 @@ export default function CaseView(props: {
                     >
                         <span className="icon">
                             <i className="codicon codicon-play"></i>
+                        </span>{' '}
+                    </button>
+                    <button
+                        className="btn btn-debug"
+                        title="Run in Debug Mode"
+                        onClick={() => props.runDebug(id, input, output)}
+                        disabled={running}
+                    >
+                        <span className="icon">
+                            <i className="codicon codicon-debug-alt"></i>
                         </span>{' '}
                     </button>
                     <button

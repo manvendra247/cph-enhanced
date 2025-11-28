@@ -14,6 +14,7 @@ export const runSingleAndSave = async (
     id: number,
     skipCompile = false,
     skipTelemetry = false,
+    debugMode = false,
 ) => {
     if (!skipTelemetry) {
         globalThis.reporter.sendTelemetryEvent(telmetry.RUN_TESTCASE);
@@ -37,7 +38,7 @@ export const runSingleAndSave = async (
     saveProblem(srcPath, problem);
 
     if (!skipCompile) {
-        if (!(await compileFile(srcPath))) {
+        if (!(await compileFile(srcPath, debugMode))) {
             globalThis.logger.error('Failed to compile', problem, id);
             return;
         }
